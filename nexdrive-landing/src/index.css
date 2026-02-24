@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply bg-primary text-background font-heading antialiased selection:bg-accent selection:text-primary overflow-x-hidden;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-drama {
+    font-family: theme('fontFamily.drama');
+    font-style: italic;
+  }
+  
+  .text-data {
+    font-family: theme('fontFamily.data');
+  }
+
+  .clip-path-inset-0 {
+    clip-path: inset(0);
+  }
+}
+
+/* Global Noise Overlay */
+.noise-overlay {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  animation: noise 8s steps(10) infinite;
+}
+
+/* Magnetic Button Interactions */
+.btn-magnetic {
+  @apply relative overflow-hidden inline-flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)];
+}
+
+.btn-magnetic:hover {
+  transform: scale(1.03);
+}
+
+.btn-magnetic::before {
+  content: '';
+  @apply absolute inset-0 bg-white/10 translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)];
+}
+
+.btn-magnetic:hover::before {
+  @apply translate-y-0;
+}
+
+/* Link Interactions */
+.link-lift {
+  @apply transition-transform duration-300 inline-block;
+}
+.link-lift:hover {
+  transform: translateY(-2px);
+}

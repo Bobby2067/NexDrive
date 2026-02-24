@@ -1,0 +1,8 @@
+.env
+.env.*
+node_modules/
+dist/
+.next/
+antigravity_credentials.txt
+*.log
+.DS_Store
