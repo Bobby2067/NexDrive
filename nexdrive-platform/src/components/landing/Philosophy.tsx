@@ -14,20 +14,23 @@ export default function Philosophy() {
       <div className="relative z-10 max-w-4xl w-full">
         <div className="mb-12">
           <span className="inline-block text-data text-sm tracking-[0.2em] text-white/40 uppercase mb-4">
-            Real Judgment vs. Memorised Rules
+            Intuition Over Imitation
           </span>
           <p className="font-heading text-xl md:text-3xl text-white/50 leading-relaxed font-light">
-            Memorised rules get you through a day.{' '}
-            <span className="text-white/80">Real judgment gets you through a lifetime.</span>
+            Memorised rules get you through a test.{' '}
+            <span className="text-white/80">
+              Real judgment gets you through a lifetime of safe, adaptive driving.
+            </span>
           </p>
         </div>
 
         <div className="mt-8 border-l-4 border-accent pl-8 md:pl-12">
-          <p className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl leading-tight text-white/90 tracking-tight mb-6">
-            We don&apos;t just teach you to pass a test. We train you to{' '}
+          <p className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl leading-tight text-white/90 tracking-tight">
+            We don&apos;t just teach you to pass.{' '}
             <br className="hidden md:block" />
+            We train you to{' '}
             <span className="text-accent underline decoration-accent/30 underline-offset-8">
-              recognise patterns and adapt.
+              perceive, analyse, and lead the road.
             </span>
           </p>
         </div>
