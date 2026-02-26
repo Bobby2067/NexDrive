@@ -67,12 +67,13 @@ export const profiles = pgTable('profiles', {
   createdAt:     timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:     timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   deletedAt:     timestamp('deleted_at', { withTimezone: true }),
-}, (t) => [
-  index('idx_profiles_clerk_user_id').on(t.clerkUserId),
-  index('idx_profiles_role').on(t.role),
-  index('idx_profiles_email').on(t.email),
-  index('idx_profiles_phone').on(t.phone),
-]);
+}, (t) => ({
+  idx_profiles_clerk_user_id: index('idx_profiles_clerk_user_id').on(t.clerkUserId),
+  idx_profiles_role: index('idx_profiles_role').on(t.role),
+  idx_profiles_email: index('idx_profiles_email').on(t.email),
+  idx_profiles_phone: index('idx_profiles_phone').on(t.phone),
+});
+
 
 /**
  * instructors — Instructor-specific data.
@@ -103,9 +104,10 @@ export const instructors = pgTable('instructors', {
 
   createdAt:       timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:       timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  uniqueIndex('idx_instructors_profile_id').on(t.profileId),
-]);
+}, (t) => ({
+  idx_instructors_profile_id: uniqueIndex('idx_instructors_profile_id').on(t.profileId),
+});
+
 
 /**
  * students — Student-specific data.
@@ -133,10 +135,11 @@ export const students = pgTable('students', {
 
   createdAt:       timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:       timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  uniqueIndex('idx_students_profile_id').on(t.profileId),
-  index('idx_students_instructor_id').on(t.instructorId),
-]);
+}, (t) => ({
+  idx_students_profile_id: uniqueIndex('idx_students_profile_id').on(t.profileId),
+  idx_students_instructor_id: index('idx_students_instructor_id').on(t.instructorId),
+});
+
 
 /**
  * parents — Parent/guardian profile extension.
@@ -148,9 +151,10 @@ export const parents = pgTable('parents', {
   isActive:    boolean('is_active').notNull().default(true),
   createdAt:   timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:   timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  uniqueIndex('idx_parents_profile_id').on(t.profileId),
-]);
+}, (t) => ({
+  idx_parents_profile_id: uniqueIndex('idx_parents_profile_id').on(t.profileId),
+});
+
 
 /**
  * parent_student_links — Many-to-many parents ↔ students.
@@ -162,9 +166,10 @@ export const parentStudentLinks = pgTable('parent_student_links', {
   canViewLessons:   boolean('can_view_lessons').notNull().default(true),
   canViewProgress:  boolean('can_view_progress').notNull().default(true),
   createdAt:   timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  uniqueIndex('idx_parent_student_unique').on(t.parentId, t.studentId),
-]);
+}, (t) => ({
+  idx_parent_student_unique: uniqueIndex('idx_parent_student_unique').on(t.parentId, t.studentId),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 2. CRM
@@ -205,13 +210,14 @@ export const contacts = pgTable('contacts', {
   createdAt:     timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:     timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   deletedAt:     timestamp('deleted_at', { withTimezone: true }),
-}, (t) => [
-  index('idx_contacts_instructor_id').on(t.instructorId),
-  index('idx_contacts_profile_id').on(t.profileId),
-  index('idx_contacts_phone').on(t.phone),
-  index('idx_contacts_email').on(t.email),
-  index('idx_contacts_lifecycle').on(t.lifecycle),
-]);
+}, (t) => ({
+  idx_contacts_instructor_id: index('idx_contacts_instructor_id').on(t.instructorId),
+  idx_contacts_profile_id: index('idx_contacts_profile_id').on(t.profileId),
+  idx_contacts_phone: index('idx_contacts_phone').on(t.phone),
+  idx_contacts_email: index('idx_contacts_email').on(t.email),
+  idx_contacts_lifecycle: index('idx_contacts_lifecycle').on(t.lifecycle),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 3. SERVICES & AVAILABILITY
@@ -232,10 +238,11 @@ export const services = pgTable('services', {
   sortOrder:       integer('sort_order').default(0),
   createdAt:       timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:       timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_services_instructor_id').on(t.instructorId),
-  index('idx_services_active').on(t.isActive),
-]);
+}, (t) => ({
+  idx_services_instructor_id: index('idx_services_instructor_id').on(t.instructorId),
+  idx_services_active: index('idx_services_active').on(t.isActive),
+});
+
 
 /**
  * availability_rules — Recurring weekly availability.
@@ -250,9 +257,10 @@ export const availabilityRules = pgTable('availability_rules', {
   isActive:     boolean('is_active').notNull().default(true),
   createdAt:    timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:    timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_availability_rules_instructor').on(t.instructorId),
-]);
+}, (t) => ({
+  idx_availability_rules_instructor: index('idx_availability_rules_instructor').on(t.instructorId),
+});
+
 
 /**
  * availability_overrides — One-off exceptions to weekly rules.
@@ -266,10 +274,11 @@ export const availabilityOverrides = pgTable('availability_overrides', {
   endTime:      text('end_time'),
   reason:       text('reason'),
   createdAt:    timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_availability_overrides_instructor').on(t.instructorId),
-  index('idx_availability_overrides_date').on(t.date),
-]);
+}, (t) => ({
+  idx_availability_overrides_instructor: index('idx_availability_overrides_instructor').on(t.instructorId),
+  idx_availability_overrides_date: index('idx_availability_overrides_date').on(t.date),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 4. BOOKINGS
@@ -304,12 +313,13 @@ export const bookings = pgTable('bookings', {
 
   createdAt:       timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:       timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_bookings_instructor_id').on(t.instructorId),
-  index('idx_bookings_student_id').on(t.studentId),
-  index('idx_bookings_scheduled_at').on(t.scheduledAt),
-  index('idx_bookings_status').on(t.status),
-]);
+}, (t) => ({
+  idx_bookings_instructor_id: index('idx_bookings_instructor_id').on(t.instructorId),
+  idx_bookings_student_id: index('idx_bookings_student_id').on(t.studentId),
+  idx_bookings_scheduled_at: index('idx_bookings_scheduled_at').on(t.scheduledAt),
+  idx_bookings_status: index('idx_bookings_status').on(t.status),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 5. LESSONS (APPEND-ONLY — Form 10.044 digital records)
@@ -361,12 +371,13 @@ export const lessons = pgTable('lessons', {
   prevHash:      text('prev_hash'),
 
   createdAt:     timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_lessons_instructor_id').on(t.instructorId),
-  index('idx_lessons_student_id').on(t.studentId),
-  index('idx_lessons_date').on(t.lessonDate),
-  index('idx_lessons_status').on(t.status),
-]);
+}, (t) => ({
+  idx_lessons_instructor_id: index('idx_lessons_instructor_id').on(t.instructorId),
+  idx_lessons_student_id: index('idx_lessons_student_id').on(t.studentId),
+  idx_lessons_date: index('idx_lessons_date').on(t.lessonDate),
+  idx_lessons_status: index('idx_lessons_status').on(t.status),
+});
+
 
 /**
  * lesson_bridge_forms — Pre/post lesson student reflection forms.
@@ -383,10 +394,11 @@ export const lessonBridgeForms = pgTable('lesson_bridge_forms', {
   submittedAt: timestamp('submitted_at', { withTimezone: true }),
   createdAt:   timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:   timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_bridge_forms_lesson_id').on(t.lessonId),
-  index('idx_bridge_forms_student_id').on(t.studentId),
-]);
+}, (t) => ({
+  idx_bridge_forms_lesson_id: index('idx_bridge_forms_lesson_id').on(t.lessonId),
+  idx_bridge_forms_student_id: index('idx_bridge_forms_student_id').on(t.studentId),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 6. COMPLIANCE — CBT&A, SIGNATURES, AUDIT (ALL APPEND-ONLY)
@@ -431,11 +443,12 @@ export const studentCompetencies = pgTable('student_competencies', {
   prevHash:      text('prev_hash'),
 
   createdAt:     timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_competencies_student_id').on(t.studentId),
-  index('idx_competencies_task_id').on(t.taskId),
-  index('idx_competencies_lesson_id').on(t.lessonId),
-]);
+}, (t) => ({
+  idx_competencies_student_id: index('idx_competencies_student_id').on(t.studentId),
+  idx_competencies_task_id: index('idx_competencies_task_id').on(t.taskId),
+  idx_competencies_lesson_id: index('idx_competencies_lesson_id').on(t.lessonId),
+});
+
 
 /**
  * signatures — Electronic signatures. IMMUTABLE once created.
@@ -460,10 +473,11 @@ export const signatures = pgTable('signatures', {
   deviceType:    text('device_type'),              // 'mobile', 'tablet', 'desktop'
 
   signedAt:      timestamp('signed_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_signatures_signer').on(t.signerProfileId),
-  index('idx_signatures_entity').on(t.entityType, t.entityId),
-]);
+}, (t) => ({
+  idx_signatures_signer: index('idx_signatures_signer').on(t.signerProfileId),
+  idx_signatures_entity: index('idx_signatures_entity').on(t.entityType, t.entityId),
+});
+
 
 /**
  * audit_log — Append-only event log. NEVER UPDATE OR DELETE.
@@ -490,12 +504,13 @@ export const auditLog = pgTable('audit_log', {
   prevHash:      text('prev_hash'),
 
   createdAt:     timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_audit_log_actor').on(t.actorProfileId),
-  index('idx_audit_log_entity').on(t.entityType, t.entityId),
-  index('idx_audit_log_action').on(t.action),
-  index('idx_audit_log_created_at').on(t.createdAt),
-]);
+}, (t) => ({
+  idx_audit_log_actor: index('idx_audit_log_actor').on(t.actorProfileId),
+  idx_audit_log_entity: index('idx_audit_log_entity').on(t.entityType, t.entityId),
+  idx_audit_log_action: index('idx_audit_log_action').on(t.action),
+  idx_audit_log_created_at: index('idx_audit_log_created_at').on(t.createdAt),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 7. PAYMENTS
@@ -535,12 +550,13 @@ export const payments = pgTable('payments', {
 
   createdAt:     timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:     timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_payments_instructor_id').on(t.instructorId),
-  index('idx_payments_student_id').on(t.studentId),
-  index('idx_payments_status').on(t.status),
-  index('idx_payments_provider_ref').on(t.providerRef),
-]);
+}, (t) => ({
+  idx_payments_instructor_id: index('idx_payments_instructor_id').on(t.instructorId),
+  idx_payments_student_id: index('idx_payments_student_id').on(t.studentId),
+  idx_payments_status: index('idx_payments_status').on(t.status),
+  idx_payments_provider_ref: index('idx_payments_provider_ref').on(t.providerRef),
+});
+
 
 /**
  * packages — Lesson bundle products.
@@ -557,9 +573,10 @@ export const packages = pgTable('packages', {
   sortOrder:     integer('sort_order').default(0),
   createdAt:     timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:     timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_packages_instructor_id').on(t.instructorId),
-]);
+}, (t) => ({
+  idx_packages_instructor_id: index('idx_packages_instructor_id').on(t.instructorId),
+});
+
 
 /**
  * student_packages — Purchased package instances.
@@ -580,10 +597,11 @@ export const studentPackages = pgTable('student_packages', {
 
   createdAt:     timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:     timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_student_packages_student_id').on(t.studentId),
-  index('idx_student_packages_active').on(t.isActive),
-]);
+}, (t) => ({
+  idx_student_packages_student_id: index('idx_student_packages_student_id').on(t.studentId),
+  idx_student_packages_active: index('idx_student_packages_active').on(t.isActive),
+});
+
 
 /**
  * vouchers — Discount codes.
@@ -610,9 +628,10 @@ export const vouchers = pgTable('vouchers', {
   isActive:       boolean('is_active').notNull().default(true),
   createdAt:      timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:      timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  uniqueIndex('idx_vouchers_code').on(t.code),
-]);
+}, (t) => ({
+  idx_vouchers_code: uniqueIndex('idx_vouchers_code').on(t.code),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 8. COMMUNICATION
@@ -643,12 +662,13 @@ export const conversations = pgTable('conversations', {
 
   createdAt:     timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:     timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_conversations_instructor_id').on(t.instructorId),
-  index('idx_conversations_contact_id').on(t.contactId),
-  index('idx_conversations_phone').on(t.phoneNumber),
-  index('idx_conversations_status').on(t.status),
-]);
+}, (t) => ({
+  idx_conversations_instructor_id: index('idx_conversations_instructor_id').on(t.instructorId),
+  idx_conversations_contact_id: index('idx_conversations_contact_id').on(t.contactId),
+  idx_conversations_phone: index('idx_conversations_phone').on(t.phoneNumber),
+  idx_conversations_status: index('idx_conversations_status').on(t.status),
+});
+
 
 /**
  * messages — Individual messages within a conversation.
@@ -675,10 +695,11 @@ export const messages = pgTable('messages', {
   deliveredAt:  timestamp('delivered_at', { withTimezone: true }),
 
   createdAt:    timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_messages_conversation_id').on(t.conversationId),
-  index('idx_messages_created_at').on(t.createdAt),
-]);
+}, (t) => ({
+  idx_messages_conversation_id: index('idx_messages_conversation_id').on(t.conversationId),
+  idx_messages_created_at: index('idx_messages_created_at').on(t.createdAt),
+});
+
 
 /**
  * call_logs — Voice call records (Retell AI).
@@ -712,11 +733,12 @@ export const callLogs = pgTable('call_logs', {
   startedAt:      timestamp('started_at', { withTimezone: true }),
   endedAt:        timestamp('ended_at', { withTimezone: true }),
   createdAt:      timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_call_logs_instructor_id').on(t.instructorId),
-  index('idx_call_logs_contact_id').on(t.contactId),
-  index('idx_call_logs_external').on(t.externalCallId),
-]);
+}, (t) => ({
+  idx_call_logs_instructor_id: index('idx_call_logs_instructor_id').on(t.instructorId),
+  idx_call_logs_contact_id: index('idx_call_logs_contact_id').on(t.contactId),
+  idx_call_logs_external: index('idx_call_logs_external').on(t.externalCallId),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 9. INSTRUCTOR TOOLS
@@ -740,10 +762,11 @@ export const privateNotes = pgTable('private_notes', {
   createdAt:     timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:     timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   deletedAt:     timestamp('deleted_at', { withTimezone: true }),
-}, (t) => [
-  index('idx_private_notes_instructor_id').on(t.instructorId),
-  index('idx_private_notes_student_id').on(t.studentId),
-]);
+}, (t) => ({
+  idx_private_notes_instructor_id: index('idx_private_notes_instructor_id').on(t.instructorId),
+  idx_private_notes_student_id: index('idx_private_notes_student_id').on(t.studentId),
+});
+
 
 /**
  * self_assessments — Student self-assessment results.
@@ -758,9 +781,10 @@ export const selfAssessments = pgTable('self_assessments', {
 
   submittedAt: timestamp('submitted_at', { withTimezone: true }).notNull().defaultNow(),
   createdAt:   timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_self_assessments_student_id').on(t.studentId),
-]);
+}, (t) => ({
+  idx_self_assessments_student_id: index('idx_self_assessments_student_id').on(t.studentId),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 10. NOTIFICATIONS
@@ -793,11 +817,12 @@ export const notifications = pgTable('notifications', {
 
   createdAt:    timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:    timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_notifications_recipient').on(t.recipientProfileId),
-  index('idx_notifications_status').on(t.status),
-  index('idx_notifications_type').on(t.notificationType),
-]);
+}, (t) => ({
+  idx_notifications_recipient: index('idx_notifications_recipient').on(t.recipientProfileId),
+  idx_notifications_status: index('idx_notifications_status').on(t.status),
+  idx_notifications_type: index('idx_notifications_type').on(t.notificationType),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 11. RAG KNOWLEDGE ENGINE
@@ -828,10 +853,11 @@ export const ragDocuments = pgTable('rag_documents', {
 
   createdAt:    timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:    timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_rag_documents_category').on(t.category),
-  index('idx_rag_documents_instructor').on(t.instructorId),
-]);
+}, (t) => ({
+  idx_rag_documents_category: index('idx_rag_documents_category').on(t.category),
+  idx_rag_documents_instructor: index('idx_rag_documents_instructor').on(t.instructorId),
+});
+
 
 /**
  * rag_chunks — Embedding chunks for vector search.
@@ -853,9 +879,10 @@ export const ragChunks = pgTable('rag_chunks', {
   metadata:     jsonb('metadata').default(sql`'{}'`),
 
   createdAt:    timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_rag_chunks_document_id').on(t.documentId),
-]);
+}, (t) => ({
+  idx_rag_chunks_document_id: index('idx_rag_chunks_document_id').on(t.documentId),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 12. SYSTEM
@@ -882,10 +909,11 @@ export const waitlist = pgTable('waitlist', {
   notifiedAt:   timestamp('notified_at', { withTimezone: true }),
   createdAt:    timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt:    timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-}, (t) => [
-  index('idx_waitlist_instructor_id').on(t.instructorId),
-  index('idx_waitlist_status').on(t.status),
-]);
+}, (t) => ({
+  idx_waitlist_instructor_id: index('idx_waitlist_instructor_id').on(t.instructorId),
+  idx_waitlist_status: index('idx_waitlist_status').on(t.status),
+});
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DRIZZLE RELATIONS
