@@ -72,7 +72,7 @@ export const profiles = pgTable('profiles', {
   idx_profiles_role: index('idx_profiles_role').on(t.role),
   idx_profiles_email: index('idx_profiles_email').on(t.email),
   idx_profiles_phone: index('idx_profiles_phone').on(t.phone),
-});
+}));
 
 
 /**
@@ -106,7 +106,7 @@ export const instructors = pgTable('instructors', {
   updatedAt:       timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => ({
   idx_instructors_profile_id: uniqueIndex('idx_instructors_profile_id').on(t.profileId),
-});
+}));
 
 
 /**
@@ -138,7 +138,7 @@ export const students = pgTable('students', {
 }, (t) => ({
   idx_students_profile_id: uniqueIndex('idx_students_profile_id').on(t.profileId),
   idx_students_instructor_id: index('idx_students_instructor_id').on(t.instructorId),
-});
+}));
 
 
 /**
@@ -153,7 +153,7 @@ export const parents = pgTable('parents', {
   updatedAt:   timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => ({
   idx_parents_profile_id: uniqueIndex('idx_parents_profile_id').on(t.profileId),
-});
+}));
 
 
 /**
@@ -168,7 +168,7 @@ export const parentStudentLinks = pgTable('parent_student_links', {
   createdAt:   timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => ({
   idx_parent_student_unique: uniqueIndex('idx_parent_student_unique').on(t.parentId, t.studentId),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -216,7 +216,7 @@ export const contacts = pgTable('contacts', {
   idx_contacts_phone: index('idx_contacts_phone').on(t.phone),
   idx_contacts_email: index('idx_contacts_email').on(t.email),
   idx_contacts_lifecycle: index('idx_contacts_lifecycle').on(t.lifecycle),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -241,7 +241,7 @@ export const services = pgTable('services', {
 }, (t) => ({
   idx_services_instructor_id: index('idx_services_instructor_id').on(t.instructorId),
   idx_services_active: index('idx_services_active').on(t.isActive),
-});
+}));
 
 
 /**
@@ -259,7 +259,7 @@ export const availabilityRules = pgTable('availability_rules', {
   updatedAt:    timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => ({
   idx_availability_rules_instructor: index('idx_availability_rules_instructor').on(t.instructorId),
-});
+}));
 
 
 /**
@@ -277,7 +277,7 @@ export const availabilityOverrides = pgTable('availability_overrides', {
 }, (t) => ({
   idx_availability_overrides_instructor: index('idx_availability_overrides_instructor').on(t.instructorId),
   idx_availability_overrides_date: index('idx_availability_overrides_date').on(t.date),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -318,7 +318,7 @@ export const bookings = pgTable('bookings', {
   idx_bookings_student_id: index('idx_bookings_student_id').on(t.studentId),
   idx_bookings_scheduled_at: index('idx_bookings_scheduled_at').on(t.scheduledAt),
   idx_bookings_status: index('idx_bookings_status').on(t.status),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -376,7 +376,7 @@ export const lessons = pgTable('lessons', {
   idx_lessons_student_id: index('idx_lessons_student_id').on(t.studentId),
   idx_lessons_date: index('idx_lessons_date').on(t.lessonDate),
   idx_lessons_status: index('idx_lessons_status').on(t.status),
-});
+}));
 
 
 /**
@@ -397,7 +397,7 @@ export const lessonBridgeForms = pgTable('lesson_bridge_forms', {
 }, (t) => ({
   idx_bridge_forms_lesson_id: index('idx_bridge_forms_lesson_id').on(t.lessonId),
   idx_bridge_forms_student_id: index('idx_bridge_forms_student_id').on(t.studentId),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -447,7 +447,7 @@ export const studentCompetencies = pgTable('student_competencies', {
   idx_competencies_student_id: index('idx_competencies_student_id').on(t.studentId),
   idx_competencies_task_id: index('idx_competencies_task_id').on(t.taskId),
   idx_competencies_lesson_id: index('idx_competencies_lesson_id').on(t.lessonId),
-});
+}));
 
 
 /**
@@ -476,7 +476,7 @@ export const signatures = pgTable('signatures', {
 }, (t) => ({
   idx_signatures_signer: index('idx_signatures_signer').on(t.signerProfileId),
   idx_signatures_entity: index('idx_signatures_entity').on(t.entityType, t.entityId),
-});
+}));
 
 
 /**
@@ -509,7 +509,7 @@ export const auditLog = pgTable('audit_log', {
   idx_audit_log_entity: index('idx_audit_log_entity').on(t.entityType, t.entityId),
   idx_audit_log_action: index('idx_audit_log_action').on(t.action),
   idx_audit_log_created_at: index('idx_audit_log_created_at').on(t.createdAt),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -555,7 +555,7 @@ export const payments = pgTable('payments', {
   idx_payments_student_id: index('idx_payments_student_id').on(t.studentId),
   idx_payments_status: index('idx_payments_status').on(t.status),
   idx_payments_provider_ref: index('idx_payments_provider_ref').on(t.providerRef),
-});
+}));
 
 
 /**
@@ -575,7 +575,7 @@ export const packages = pgTable('packages', {
   updatedAt:     timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => ({
   idx_packages_instructor_id: index('idx_packages_instructor_id').on(t.instructorId),
-});
+}));
 
 
 /**
@@ -600,7 +600,7 @@ export const studentPackages = pgTable('student_packages', {
 }, (t) => ({
   idx_student_packages_student_id: index('idx_student_packages_student_id').on(t.studentId),
   idx_student_packages_active: index('idx_student_packages_active').on(t.isActive),
-});
+}));
 
 
 /**
@@ -630,7 +630,7 @@ export const vouchers = pgTable('vouchers', {
   updatedAt:      timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => ({
   idx_vouchers_code: uniqueIndex('idx_vouchers_code').on(t.code),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -667,7 +667,7 @@ export const conversations = pgTable('conversations', {
   idx_conversations_contact_id: index('idx_conversations_contact_id').on(t.contactId),
   idx_conversations_phone: index('idx_conversations_phone').on(t.phoneNumber),
   idx_conversations_status: index('idx_conversations_status').on(t.status),
-});
+}));
 
 
 /**
@@ -698,7 +698,7 @@ export const messages = pgTable('messages', {
 }, (t) => ({
   idx_messages_conversation_id: index('idx_messages_conversation_id').on(t.conversationId),
   idx_messages_created_at: index('idx_messages_created_at').on(t.createdAt),
-});
+}));
 
 
 /**
@@ -737,7 +737,7 @@ export const callLogs = pgTable('call_logs', {
   idx_call_logs_instructor_id: index('idx_call_logs_instructor_id').on(t.instructorId),
   idx_call_logs_contact_id: index('idx_call_logs_contact_id').on(t.contactId),
   idx_call_logs_external: index('idx_call_logs_external').on(t.externalCallId),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -765,7 +765,7 @@ export const privateNotes = pgTable('private_notes', {
 }, (t) => ({
   idx_private_notes_instructor_id: index('idx_private_notes_instructor_id').on(t.instructorId),
   idx_private_notes_student_id: index('idx_private_notes_student_id').on(t.studentId),
-});
+}));
 
 
 /**
@@ -783,7 +783,7 @@ export const selfAssessments = pgTable('self_assessments', {
   createdAt:   timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => ({
   idx_self_assessments_student_id: index('idx_self_assessments_student_id').on(t.studentId),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -821,7 +821,7 @@ export const notifications = pgTable('notifications', {
   idx_notifications_recipient: index('idx_notifications_recipient').on(t.recipientProfileId),
   idx_notifications_status: index('idx_notifications_status').on(t.status),
   idx_notifications_type: index('idx_notifications_type').on(t.notificationType),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -856,7 +856,7 @@ export const ragDocuments = pgTable('rag_documents', {
 }, (t) => ({
   idx_rag_documents_category: index('idx_rag_documents_category').on(t.category),
   idx_rag_documents_instructor: index('idx_rag_documents_instructor').on(t.instructorId),
-});
+}));
 
 
 /**
@@ -881,7 +881,7 @@ export const ragChunks = pgTable('rag_chunks', {
   createdAt:    timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => ({
   idx_rag_chunks_document_id: index('idx_rag_chunks_document_id').on(t.documentId),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -912,7 +912,7 @@ export const waitlist = pgTable('waitlist', {
 }, (t) => ({
   idx_waitlist_instructor_id: index('idx_waitlist_instructor_id').on(t.instructorId),
   idx_waitlist_status: index('idx_waitlist_status').on(t.status),
-});
+}));
 
 
 // ─────────────────────────────────────────────────────────────────────────────
