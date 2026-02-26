@@ -13,6 +13,12 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const links = [
+    { label: 'Roadcraft', href: '#approach' },
+    { label: 'Methodology', href: '#protocol' },
+    { label: 'Investment', href: '#investment' },
+  ];
+
   return (
     <>
       <nav
@@ -34,13 +40,18 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/70">
-          <a href="#approach" className="hover:text-white transition-colors">Approach</a>
-          <a href="#protocol" className="hover:text-white transition-colors">Protocol</a>
-          <a href="#investment" className="hover:text-white transition-colors">Investment</a>
+          {links.map((l) => (
+            <a key={l.label} href={l.href} className="hover:text-white transition-colors">
+              {l.label}
+            </a>
+          ))}
         </div>
 
         <div className="hidden md:block">
-          <a href="#investment" className="btn-magnetic px-6 py-2.5 rounded-full bg-blue text-white font-semibold text-sm shadow-[0_0_15px_rgba(2,92,165,0.4)] hover:shadow-[0_0_25px_rgba(2,92,165,0.6)]">
+          <a
+            href="#investment"
+            className="btn-magnetic px-6 py-2.5 rounded-full bg-blue text-white font-semibold text-sm shadow-[0_0_15px_rgba(2,92,165,0.4)] hover:shadow-[0_0_25px_rgba(2,92,165,0.6)]"
+          >
             Start Journey
           </a>
         </div>
@@ -51,13 +62,26 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 z-40 bg-primary flex flex-col items-center justify-center gap-8 transition-opacity duration-300 ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        {['Approach', 'Protocol', 'Investment'].map((item) => (
-          <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMobileOpen(false)} className="text-2xl font-heading font-bold text-white">
-            {item}
+      <div
+        className={`fixed inset-0 z-40 bg-primary flex flex-col items-center justify-center gap-8 transition-opacity duration-300 ${
+          mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        {links.map((l) => (
+          <a
+            key={l.label}
+            href={l.href}
+            onClick={() => setMobileOpen(false)}
+            className="text-2xl font-heading font-bold text-white"
+          >
+            {l.label}
           </a>
         ))}
-        <a href="#investment" className="px-8 py-4 rounded-full bg-accent text-primary font-semibold mt-4 text-lg" onClick={() => setMobileOpen(false)}>
+        <a
+          href="#investment"
+          className="px-8 py-4 rounded-full bg-accent text-primary font-semibold mt-4 text-lg"
+          onClick={() => setMobileOpen(false)}
+        >
           Start Journey
         </a>
       </div>
