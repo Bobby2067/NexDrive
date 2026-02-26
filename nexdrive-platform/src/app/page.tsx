@@ -1,11 +1,21 @@
+import Navbar from '@/components/landing/Navbar';
+import Hero from '@/components/landing/Hero';
+import Features from '@/components/landing/Features';
+import Philosophy from '@/components/landing/Philosophy';
+import Protocol from '@/components/landing/Protocol';
+import CTA from '@/components/landing/CTA';
+import Footer from '@/components/landing/Footer';
+
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-white">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-brand-900 mb-4">NexDrive Academy</h1>
-        <p className="text-xl text-gray-600 mb-2">Professional Driving Instruction — Canberra, ACT</p>
-        <p className="text-sm text-gray-400">Platform launching soon</p>
-      </div>
+    <main className="bg-primary min-h-screen text-white">
+      <Navbar />
+      <Hero />
+      <Features />
+      <Philosophy />
+      <Protocol />
+      <CTA />
+      <Footer />
     </main>
   );
 }
