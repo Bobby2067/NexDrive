@@ -4,20 +4,20 @@ import { useState, useEffect, useRef } from 'react';
 const steps = [
   {
     num: '01',
-    title: 'Real Roads',
-    desc: 'You encounter different decisions and learn pattern recognition for actual driving situations.',
+    title: 'Environmental Integration',
+    desc: 'Stop practising; start performing. We use high-fidelity road environments to build the pattern recognition and safe decision-making required for real-world traffic flow.',
     vizType: 'rotate',
   },
   {
     num: '02',
-    title: 'The Why',
-    desc: "Not just 'do this'. Here's why. Here's when. Understanding sticks. Rules fade.",
+    title: 'Technical Rationale',
+    desc: 'We bridge the gap between "what" and "why." When you understand the physics and logic behind a manoeuvre, the rules fade away and true driver safety becomes second nature.',
     vizType: 'scan',
   },
   {
     num: '03',
-    title: 'Deliberate Practice',
-    desc: 'Every lesson targets specific skill gaps. Every hour trains something real.',
+    title: 'Precision Refinement',
+    desc: 'Every session is engineered deliberate practice. We isolate specific performance gaps to ensure every hour behind the wheel builds elite intuition and safe habits.',
     vizType: 'pulse',
   },
 ];
@@ -26,8 +26,10 @@ export default function Protocol() {
   return (
     <section id="protocol" className="relative bg-primary py-24 pb-32">
       <div className="max-w-4xl mx-auto px-6 mb-24 text-center">
-        <h2 className="font-heading font-black italic text-4xl md:text-5xl text-white mb-4">The Methodology</h2>
-        <p className="text-white/60 font-light text-xl">How we train real skills.</p>
+        <h2 className="font-heading font-black italic text-4xl md:text-5xl text-white mb-4">
+          Three Pillars of Mastery
+        </h2>
+        <p className="text-white/60 font-light text-xl">The NexDrive Methodology.</p>
       </div>
 
       <div className="relative max-w-5xl mx-auto px-6 flex flex-col gap-8">
@@ -64,7 +66,9 @@ function ProtocolCard({ step, index }: { step: typeof steps[0]; index: number })
 
       <div className="flex-1 z-10">
         <span className="text-data text-accent text-lg md:text-2xl mb-4 block">[{step.num}]</span>
-        <h3 className="font-heading font-bold text-4xl md:text-6xl text-white mb-6 tracking-tight">{step.title}</h3>
+        <h3 className="font-heading font-bold text-4xl md:text-6xl text-white mb-6 tracking-tight">
+          {step.title}
+        </h3>
         <p className="font-light text-xl text-white/60 leading-relaxed max-w-sm">{step.desc}</p>
       </div>
 
@@ -109,7 +113,7 @@ function ScanViz() {
   return (
     <div className="w-full h-full relative border border-white/10 overflow-hidden bg-black/20">
       <div
-        className="w-full h-1 bg-accent absolute shadow-[0_0_15px_rgba(140,198,63,0.8)] transition-none"
+        className="w-full h-1 bg-accent absolute shadow-[0_0_15px_rgba(140,198,63,0.8)]"
         style={{ top: `${y}%` }}
       />
       <div className="grid grid-cols-5 gap-2 opacity-20 p-4 h-full">
@@ -123,7 +127,7 @@ function PulseViz() {
   const [offset, setOffset] = useState(200);
   useEffect(() => {
     let frame: number;
-    let start: number;
+    let start = 0;
     const animate = (ts: number) => {
       if (!start) start = ts;
       const elapsed = (ts - start) / 2000;
@@ -131,17 +135,12 @@ function PulseViz() {
       if (elapsed < 1) {
         frame = requestAnimationFrame(animate);
       } else {
-        setTimeout(() => {
-          start = 0;
-          setOffset(200);
-          frame = requestAnimationFrame(animate);
-        }, 1000);
+        setTimeout(() => { start = 0; setOffset(200); frame = requestAnimationFrame(animate); }, 1000);
       }
     };
     frame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(frame);
   }, []);
-
   return (
     <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" stroke="currentColor">
       <path
