@@ -21,13 +21,15 @@ export interface RefundRequest {
 
 export interface VoucherValidateRequest {
   code: string
-  amountAud: string // decimal string
+  amountCents: number
 }
 
 export interface VoucherValidateResponse {
   valid: boolean
   discountAud?: string
   finalAud?: string
+  discountCents?: number
+  finalCents?: number
   error?: string
 }
 
