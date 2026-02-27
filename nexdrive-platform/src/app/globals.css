@@ -42,3 +42,8 @@
 .btn-magnetic:hover::before {
   @apply translate-y-0;
 }
+
+/* Scroll offset for fixed floating navbar */
+[id] {
+  scroll-margin-top: 120px;
+}
