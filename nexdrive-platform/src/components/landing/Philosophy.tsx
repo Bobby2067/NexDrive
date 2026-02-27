@@ -13,7 +13,7 @@ export default function Philosophy() {
 
       <div className="relative z-10 max-w-4xl w-full">
         <div className="mb-12">
-          <span className="inline-block text-data text-sm tracking-[0.2em] text-white/40 uppercase mb-4">
+          <span className="inline-block text-data text-xs tracking-[0.25em] text-accent uppercase mb-4">
             Intuition Over Imitation
           </span>
           <p className="font-heading text-xl md:text-3xl text-white/50 leading-relaxed font-light">
