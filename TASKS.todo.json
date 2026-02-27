@@ -1,0 +1,48 @@
+{
+  "version": "1.0",
+  "updated_at_utc": "2026-02-27T16:00:00Z",
+  "policy": {
+    "source_of_truth": "This file is the canonical shared TODO list across agents, LLMs, and programmers.",
+    "status_values": [
+      "todo",
+      "in_progress",
+      "blocked",
+      "done"
+    ],
+    "rules": [
+      "Any contributor must update this file in the same PR as related code changes.",
+      "A gate-related task is complete only when local `npm run gate` passes and CI is green.",
+      "Do not delete completed tasks; keep history for handoffs."
+    ]
+  },
+  "tasks": [
+    {
+      "id": "GATE-001",
+      "title": "Establish root cross-platform gate command",
+      "status": "done",
+      "owner": "shared",
+      "notes": "Implemented in root package.json as `npm run gate`."
+    },
+    {
+      "id": "GATE-002",
+      "title": "Enforce gates in CI on pull requests and pushes",
+      "status": "done",
+      "owner": "shared",
+      "notes": "Implemented in .github/workflows/gates.yml."
+    },
+    {
+      "id": "GATE-003",
+      "title": "Tighten lint policy to fail on warnings",
+      "status": "todo",
+      "owner": "shared",
+      "notes": "Optional hardening step; currently warnings are allowed."
+    },
+    {
+      "id": "GATE-004",
+      "title": "Add test scripts in both apps and include in gate",
+      "status": "todo",
+      "owner": "shared",
+      "notes": "No test scripts are defined yet in app package.json files."
+    }
+  ]
+}
