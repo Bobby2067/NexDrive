@@ -28,7 +28,7 @@ export default function Navbar() {
             : 'bg-transparent border border-transparent'
         }`}
       >
-        <div className="flex flex-col items-start leading-none w-[140px] md:w-[200px]">
+        <div className="flex flex-col items-start leading-none w-[280px] md:w-[380px]">
           <Image
             src="/nexdrive-logo.png"
             alt="NexDrive Academy"
