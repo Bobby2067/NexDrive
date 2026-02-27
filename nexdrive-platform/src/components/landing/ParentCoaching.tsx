@@ -59,11 +59,11 @@ export default function ParentCoaching() {
         </div>
 
         {/* ── Two-column layout ───────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-20">
 
           {/* Left — Five Pillars */}
           <div>
-            <p className="text-data text-[10px] uppercase tracking-[0.2em] text-white/30 mb-5">
+            <p className="text-data text-xs uppercase tracking-[0.25em] text-accent mb-5">
               The Five Coaching Pillars
             </p>
             <div className="space-y-3">
