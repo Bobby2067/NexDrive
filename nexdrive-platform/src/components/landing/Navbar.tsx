@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-6 py-4 rounded-[2rem] transition-all duration-500 w-[95%] max-w-5xl ${
+        className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-6 py-4 rounded-[2rem] transition-all duration-500 w-[95%] max-w-7xl ${
           scrolled
             ? 'bg-primary/90 backdrop-blur-xl border border-blue/20 shadow-[-10px_10px_30px_rgba(2,92,165,0.1),_10px_10px_30px_rgba(140,198,63,0.05)]'
             : 'bg-transparent border border-transparent'
