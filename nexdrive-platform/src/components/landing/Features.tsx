@@ -4,7 +4,8 @@ import { MousePointer2, GitCommitHorizontal, Crosshair } from 'lucide-react';
 
 export default function Features() {
   return (
-    <section id="approach" className="relative z-20 py-32 px-6 md:px-16 max-w-7xl mx-auto">
+    <section id="approach" className="relative z-20 py-32 px-6 md:px-16">
+      <div className="max-w-7xl mx-auto">
       <div className="mb-20 text-center max-w-4xl mx-auto">
         <h2 className="font-heading font-black italic text-4xl md:text-6xl text-white mb-6">
           The Art of <span className="text-accent">Roadcraft</span>
