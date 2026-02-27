@@ -1,0 +1,55 @@
+NexDrive Brownfield Local Runbook
+=================================
+
+1) Start local mode
+-------------------
+Full stack (platform + landing):
+  pwsh -NoProfile -ExecutionPolicy Bypass -File .\run-local.ps1
+
+Platform only:
+  pwsh -NoProfile -ExecutionPolicy Bypass -File .\run-local.ps1 -PlatformOnly
+
+Custom ports:
+  pwsh -NoProfile -ExecutionPolicy Bypass -File .\run-local.ps1 -PlatformPort 3010 -LandingPort 5174
+
+2) Stop local mode
+------------------
+  pwsh -NoProfile -ExecutionPolicy Bypass -File .\stop-local.ps1
+
+3) Health and diagnostics
+-------------------------
+Health endpoint:
+  GET http://localhost:3000/api/health
+
+Expected in no-cloud local mode:
+  {
+    "status": "local-degraded",
+    "mode": "local",
+    ...
+  }
+
+4) Local mock endpoints
+-----------------------
+These are available when NEXDRIVE_LOCAL_MODE=true:
+
+Services:
+  GET  /api/services
+
+Availability:
+  GET  /api/availability?instructorId=test-instructor&date=2026-03-01
+
+Bookings (standard route with local fallback):
+  GET  /api/bookings
+  POST /api/bookings
+
+Bookings (explicit mock-only routes):
+  GET   /api/bookings/mock
+  POST  /api/bookings/mock
+  GET   /api/bookings/mock/{id}
+  PATCH /api/bookings/mock/{id}
+
+5) Local mode behavior
+----------------------
+- If Clerk keys are missing, booking routes return mock data/results.
+- If DB/Redis/Stripe are unavailable, APIs degrade gracefully instead of crashing.
+- In connected mode (NEXDRIVE_LOCAL_MODE not true), mock-only routes return 404.

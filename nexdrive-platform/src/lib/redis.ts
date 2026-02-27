@@ -1,10 +1,21 @@
 import { Redis } from '@upstash/redis';
+const redisUrl = process.env.UPSTASH_REDIS_REST_URL?.trim()
+const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN?.trim()
 
-if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
-  throw new Error('Upstash Redis environment variables are not set');
-}
+export const isRedisConfigured = Boolean(redisUrl && redisToken)
 
-export const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
+const unavailableRedis = new Proxy(
+  {},
+  {
+    get() {
+      throw new Error('Upstash Redis is not configured. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.')
+    },
+  }
+) as Redis
+
+export const redis = isRedisConfigured
+  ? new Redis({
+      url: redisUrl!,
+      token: redisToken!,
+    })
+  : unavailableRedis

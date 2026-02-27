@@ -1,9 +1,17 @@
-import { neon } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-http';
+import { neon } from '@neondatabase/serverless'
+import { drizzle } from 'drizzle-orm/neon-http'
 
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL environment variable is not set');
-}
+const databaseUrl = process.env.DATABASE_URL?.trim()
+export const isDatabaseConfigured = Boolean(databaseUrl)
 
-const sql = neon(process.env.DATABASE_URL);
-export const db = drizzle(sql);
+const unavailableDb = new Proxy(
+  {},
+  {
+    get() {
+      throw new Error('Database is not configured. Set DATABASE_URL to enable database-backed APIs.')
+    },
+  }
+) as ReturnType<typeof drizzle>
+
+const sql = isDatabaseConfigured ? neon(databaseUrl!) : null
+export const db = sql ? drizzle(sql) : unavailableDb

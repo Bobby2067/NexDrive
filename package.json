@@ -1,0 +1,15 @@
+{
+  "name": "nexdrive-monorepo-gates",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Cross-platform gate runner for NexDrive",
+  "scripts": {
+    "build:platform": "npm --prefix ./nexdrive-platform run build",
+    "build:landing": "npm --prefix ./nexdrive-landing run build",
+    "build:all": "npm run build:platform && npm run build:landing",
+    "lint:platform": "npm --prefix ./nexdrive-platform run lint",
+    "lint:landing": "npm --prefix ./nexdrive-landing run lint",
+    "lint:all": "npm run lint:platform && npm run lint:landing",
+    "gate": "npm run build:all && npm run lint:all"
+  }
+}
