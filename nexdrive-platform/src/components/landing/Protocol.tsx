@@ -24,15 +24,15 @@ const steps = [
 
 export default function Protocol() {
   return (
-    <section id="protocol" className="relative bg-primary py-24 pb-32">
-      <div className="max-w-4xl mx-auto px-6 mb-24 text-center">
-        <h2 className="font-heading font-black italic text-4xl md:text-5xl text-white mb-4">
+    <section id="protocol" className="relative bg-primary py-32 px-6 md:px-16">
+      <div className="max-w-7xl mx-auto mb-20 text-center">
+        <h2 className="font-heading font-black italic text-4xl md:text-6xl text-white mb-6">
           Three Pillars of Mastery
         </h2>
         <p className="text-white/60 font-light text-xl">The NexDrive Methodology.</p>
       </div>
 
-      <div className="relative max-w-5xl mx-auto px-6 flex flex-col gap-8">
+      <div className="relative max-w-7xl mx-auto flex flex-col gap-8">
         {steps.map((step, i) => (
           <ProtocolCard key={i} step={step} index={i} />
         ))}
