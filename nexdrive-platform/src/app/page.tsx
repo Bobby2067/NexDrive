@@ -2,6 +2,7 @@ import Navbar from '@/components/landing/Navbar';
 import Hero from '@/components/landing/Hero';
 import Features from '@/components/landing/Features';
 import Philosophy from '@/components/landing/Philosophy';
+import AboutRob from '@/components/landing/AboutRob';
 import Protocol from '@/components/landing/Protocol';
 import CTA from '@/components/landing/CTA';
 import Footer from '@/components/landing/Footer';
@@ -13,6 +14,7 @@ export default function Home() {
       <Hero />
       <Features />
       <Philosophy />
+      <AboutRob />
       <Protocol />
       <CTA />
       <Footer />
