@@ -6,19 +6,20 @@ export default function Features() {
   return (
     <section id="approach" className="relative z-20 py-32 px-6 md:px-16">
       <div className="max-w-7xl mx-auto">
-      <div className="mb-20 text-center max-w-4xl mx-auto">
-        <h2 className="font-heading font-black italic text-4xl md:text-6xl text-white mb-6">
-          The Art of <span className="text-accent">Roadcraft</span>
-        </h2>
-        <p className="text-white/60 text-lg md:text-xl leading-relaxed">
-          Move beyond basics. Learn to bridge the gap between basic operation and{' '}
-          <span className="text-accent">expert-level situational awareness</span>.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <PerceptionCard />
-        <CognitionCard />
-        <RefinementCard />
+        <div className="mb-20 text-center max-w-4xl mx-auto">
+          <h2 className="font-heading font-black italic text-4xl md:text-6xl text-white mb-6">
+            The Art of <span className="text-accent">Roadcraft</span>
+          </h2>
+          <p className="text-white/60 text-lg md:text-xl leading-relaxed">
+            Move beyond basics. Learn to bridge the gap between basic operation and{' '}
+            <span className="text-accent">expert-level situational awareness</span>.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <PerceptionCard />
+          <CognitionCard />
+          <RefinementCard />
+        </div>
       </div>
     </section>
   );
