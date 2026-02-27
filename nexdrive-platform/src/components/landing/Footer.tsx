@@ -1,4 +1,4 @@
-import { Shield } from 'lucide-react';
+import { Shield, Download } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Footer() {
@@ -22,9 +22,16 @@ export default function Footer() {
         <div>
           <h4 className="font-heading font-semibold text-white mb-6">Parent Support</h4>
           <ul className="space-y-4 font-light text-sm text-white/60">
-            <li>Curious what real parent coaching looks like?</li>
+            <li className="leading-relaxed">
+              Train the person training your learner. Download our free Supervisor&apos;s Guide to Roadcraft.
+            </li>
             <li>
-              <a href="#" className="flex items-center gap-2 text-accent font-semibold hover:text-white transition-colors">
+              <a
+                href="/NexDrive_Parent_Guide.pdf"
+                download="NexDrive_Supervisors_Guide.pdf"
+                className="flex items-center gap-2 text-accent font-semibold hover:text-white transition-colors group"
+              >
+                <Download size={14} className="group-hover:translate-y-0.5 transition-transform" />
                 Download Free Parent Guide
               </a>
             </li>
