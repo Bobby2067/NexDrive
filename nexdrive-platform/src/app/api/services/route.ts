@@ -28,6 +28,18 @@ export async function POST(req: Request) {
 
   if (!body.name || !body.durationMinutes || !body.priceAud) return NextResponse.json({ error: 'name, durationMinutes and priceAud are required' }, { status: 400 })
 
-  const [service] = await db.insert(services).values({ instructorId: instructor.id, name: body.name, description: body.description, durationMinutes: body.durationMinutes, priceAud: body.priceAud, isActive: true }).returning()
+  // Convert AUD decimal string ("95.00") to integer cents (9500) — schema stores priceCents
+  const priceCents = Math.round(parseFloat(body.priceAud) * 100)
+  if (isNaN(priceCents) || priceCents <= 0) return NextResponse.json({ error: 'priceAud must be a positive number' }, { status: 400 })
+
+  const [service] = await db.insert(services).values({
+    instructorId: instructor.id,
+    name: body.name,
+    description: body.description,
+    durationMinutes: body.durationMinutes,
+    priceCents,
+    isActive: true,
+  }).returning()
+
   return NextResponse.json({ service }, { status: 201 })
 }
